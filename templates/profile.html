@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Main Layout */
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #9966ff 0%, #6633cc 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .brand {
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand img {
+            width: 120px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 30px 0;
+            flex-grow: 1;
+        }
+
+        .nav-menu li {
+            margin-bottom: 5px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 14px 25px;
+            display: block;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 30px;
+        }
+
+        .nav-menu a.active::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #bd10e0;
+        }
+
+        .logout {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .logout a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* Profile Page Specific Styles */
+        .profile-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .profile-sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #9966ff 0%, #6633cc 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-sidebar h2 {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .profile-sidebar ul {
+            list-style: none;
+            padding: 30px 0;
+            flex-grow: 1;
+        }
+
+        .profile-sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .profile-sidebar a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 14px 25px;
+            display: block;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .profile-sidebar a:hover, 
+        .profile-sidebar a[href="{{ url_for('profile') }}"] {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 30px;
+        }
+
+        .profile-sidebar a[href="{{ url_for('profile') }}"]:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #bd10e0;
+        }
+
+        .profile-content {
+            flex: 1;
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .profile-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 0;
+        }
+
+        .profile-content h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-info {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .profile-info p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .profile-info strong {
+            color: #6633cc;
+            width: 150px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<div class="profile-container">
+    <div class="profile-sidebar">
+        <div class="brand">
+            <img src="{{ url_for('static', filename='quran_icon.png') }}" alt="Qurani Logo">
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="{{ url_for('dashboard') }}">dashboard</a></li>
+            <li><a href="{{ url_for('profile') }}" class="active">profile</a></li>
+            <li><a href="{{ url_for('choose_mood') }}">choose mood</a></li>
+        </ul>
+        
+        <div class="logout">
+            <a href="{{ url_for('logout') }}">disconnect</a>
+        </div>
+    </div>
+    
+    <div class="profile-content">
+        <h2>Profile de {{ user.username }}</h2>
+        <div class="profile-info">
+            <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Prénom:</strong> {{ user.first_name or 'Non renseigné' }}</p>
+            <p><strong>Nom:</strong> {{ user.last_name or 'Non renseigné' }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

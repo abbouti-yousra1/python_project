@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qurani - Accueil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='background.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: auto;
+            width: 80%;
+            margin: 100px auto;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 60px;
+            color: #5e35b1;
+        }
+        .highlight {
+            color: #8e44ad;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 40px;
+            margin-top: 10px;
+            color: #2c3e50;
+        }
+        .buttons {
+            margin-top: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 25px;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        .login {
+            background: #6a1b9a;
+        }
+        .register {
+            background: #d500f9;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        h1 img {
+            width: 300px;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="highlight">Welcome to</span> <img src="{{ url_for('static', filename='quran_icon.png') }}" alt="Qurani Logo"> </h1>
+        <p class="subtitle">Your source for daily Quranic inspiration and guidance</p>
+        <div class="buttons">
+            <a href="{{ url_for('login') }}" class="btn login">Login</a>
+            <a href="{{ url_for('register') }}" class="btn register">Register</a>
+        </div>
+    </div>
+</body>
+</html>
